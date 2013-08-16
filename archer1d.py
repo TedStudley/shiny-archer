@@ -5,9 +5,9 @@ N           = 256
 sigma       = 0.9
 epsilon     = 1.25
 T           = 1
-c           = 0.5001
+c           = 0.5
 h           = 1.0 / N
-dt          = h * 0.001
+dt          = h * 0.0001
 iteration   = 0
 
 info("Initial parameters: N = {0}; sigma = {1}; epsilon = {2}; h = {3}; dt = {4}".format(N, sigma, epsilon, h, dt))
@@ -42,6 +42,7 @@ while t <= T:
   solve(A, u.vector(), b)
   info("Iteration {0} (Time {1}): Min = {2}; Max = {3}".format(iteration, t, u.vector().min(), u.vector().max()))
   plot(u)
+  interactive()
   u_1.assign(u)
   t += dt
   iteration += 1
