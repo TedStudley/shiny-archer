@@ -41,13 +41,12 @@ u = Function(V)
 t = dt
 
 while t <= T:
-  L = u_1*v*dx + epsilon*dt*(1-c)*inner(nabla_grad(u_1), nabla_grad(v))*dx
+  L = u_1*v*dx - epsilon*dt*(1-c)*inner(nabla_grad(u_1), nabla_grad(v))*dx
   b = assemble(L)
   bc.apply(A, b)
   solve(A, u.vector(), b, "gmres", "ilu")
   info("Iteration {0} (Time {1}): Min = {2}; Max = {3}".format(iteration, t, u.vector().min(), u.vector().max()))
   plot(u)
-  interactive()
   u_1.assign(u)
   t += dt
   iteration += 1
