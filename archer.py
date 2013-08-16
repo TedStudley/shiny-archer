@@ -1,14 +1,14 @@
 from dolfin import *
 import sys
 
-N       = 256
-sigma   = 0.9
-epsilon = 1.25
-T       = 1
-c       = 0.6
-h = 1.0 / N
-dt = h * 0.001
-iteration = 0
+N           = 256
+sigma       = 0.9
+epsilon     = 1.25
+T           = 1
+c           = 0.5001
+h           = 1.0 / N
+dt          = h * 0.001
+iteration   = 0
 
 info("Initial parameters: N = {0}; sigma = {1}; epsilon = {2}; h = {3}; dt = {4}".format(N, sigma, epsilon, h, dt))
 
@@ -36,7 +36,7 @@ u = Function(V)
 t = dt
 
 while t <= T:
-  L = u_1*v*dx + epsilon*dt*(1-c)*inner(nabla_grad(u_1), nabla_grad(v))*dx
+  L = u_1*v*dx - epsilon*dt*(1-c)*inner(nabla_grad(u_1), nabla_grad(v))*dx
   b = assemble(L)
   bc.apply(A, b)
   solve(A, u.vector(), b)

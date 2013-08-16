@@ -39,16 +39,11 @@ u = Function(V)
 T = 2
 t = dt
 
-file = File('diffusion.pvd')
-
-file << u_1
-M = inner(u, n)
-
 while t <= T:
   b = assemble(L)
   u0.t = t
   bc.apply(A, b)
-  solve(A == L, u, bcs=bc, tol=0.01, M=M)
+  solve(A, u.vector(), b)
 
   t += dt
   u_1.assign(u)
@@ -59,5 +54,4 @@ while t <= T:
 
   b = assemble(L, tensor=b)
 
-  file << u
   plot(u)
